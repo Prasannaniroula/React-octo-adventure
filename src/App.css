@@ -1,0 +1,21 @@
+#range{
+    -webkit-appearance: none;
+    background-color: #d3d3d3;;
+    height: 10px;
+    border-radius: 20px; 
+    width: 15%;
+}
+#range::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: green;
+}
+#check{
+    height: 18px;
+    width: 20px;
+}
+p{
+    font-size: 25px;
+}
