@@ -1,4 +1,4 @@
-import { useState,useCallback,useEffect } from 'react'
+import { useState,useCallback,useEffect, useRef } from 'react'
 import './App.css'
 
 function App() {
@@ -20,6 +20,15 @@ function App() {
 
   },[length,numberAllow,symbolAllow,setPassword])
 
+  const passwordRef = useRef()
+  const btnRef = useRef()
+
+  const copyPasswordToClipboard = useCallback(()=>{
+    passwordRef.current?.select()
+    btnRef.color('yellow')
+    window.navigator.clipboard.writeText(password)
+  },[password])
+
   useEffect(()=>{
     passwordgenerator()
   },[length,numberAllow,symbolAllow,setPassword])
@@ -38,14 +47,18 @@ function App() {
       </div>
      <div className='flex justify-center items-center '>
      
-      <input className='h-16 w-2/3 text-3xl text-center text-black bg-white mt-10 rounded-l-lg' type='text' placeholder='Your password here' value={password} readOnly></input>
-      <button className='bg-yellow-100 w-28 h-16 mt-10 text-3xl rounded-r-lg'>Copy</button>
+      <input className='h-16 w-2/3 text-3xl text-center text-black bg-white mt-10 rounded-l-lg' type='text'
+       placeholder='Your password here' value={password}
+       ref={passwordRef} readOnly></input>
+      <button
+      onClick={copyPasswordToClipboard} 
+      ref={btnRef}
+      className='bg-yellow-100 w-28 h-16 mt-10 text-3xl rounded-r-lg'>Copy</button>
      </div>
      <div>
       <div className='flex items-center justify-center gap-16 mt-5 text-white' >
      <input className='flex items-center justify-center' id='range' type='range' min={8} max={30}
-     onChange={(e)=>{setLength(e.target.value)}}
-     value={0}/>
+     onChange={(e)=>{setLength(e.target.value)}}/>
      <p>Length:{length}</p>
      <p><input id='check' type='checkbox'
      onChange={()=>{setNumber((prev=>!prev))}}
